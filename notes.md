@@ -10,3 +10,9 @@
 - create session : sign in
 - show details of signed in user on screen
 - sign out
+
+## Passport js
+- Passport is authentication middleware for Node.js.
+- `npm install passport`
+- `npm install passport-local`
+- it uses session cookie to store id - encrypted id
