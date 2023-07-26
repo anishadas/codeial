@@ -1,12 +1,16 @@
 const express = require('express');
 const path = require('path');
 const expressLayouts = require('express-ejs-layouts');
+const cookieParser = require('cookie-parser');
 const PORT = 8000;
 
 const app = express();
 const db = require('./config/mongoose');
 
 app.use(expressLayouts);
+// for post requests
+app.use(express.urlencoded({extended:true}));
+app.use(cookieParser());
 app.use('/', require('./routes'));
 app.use(express.static('./assets'));
 
@@ -22,3 +26,6 @@ app.listen(PORT, (err) => {
     }
     console.log(`server is running on port ${PORT}`);
 })
+
+// for cookies
+// npm i cookie-parser
