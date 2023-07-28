@@ -15,6 +15,7 @@ passport.use(new LocalStrategy({
                     console.log("Invalid Username/Password");
                     return done(null, false);
                 }
+                // return the duser to serializer
                 return done(null, user);
             })
             .catch(err => {
@@ -27,7 +28,7 @@ passport.use(new LocalStrategy({
 
 // serializing the user to decide which key is to be kept in cookies
 passport.serializeUser(function (user, done) {
-    // storing id as cookie
+    // storing id as cookie and encrypt it using express session
     done(null, user.id);
 });
 
@@ -43,4 +44,22 @@ passport.deserializeUser(function (id, done) {
         })
 });
 
+// midlleware to check if the user is authenticated
+passport.checkAuthentication = (req, res, next) => {
+    // if the user is signed in, then pass the req to next function
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    // if the user is not signed in
+    return res.redirect('/users/signin');
+}
+
+passport.setAuthenticatedUser = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        // console.log("user",req.user,res.locals)
+        // req.user contains the current signedin user from the session cookie and we are just sending this to the the locals for the views
+        res.locals.user = req.user;
+    }
+    next();
+}
 module.exports = passport;

@@ -1,0 +1,9 @@
+footer {
+  background-color: white;
+  font-weight: 800;
+  padding: 10px;
+  color: white; }
+  footer i {
+    color: #090957;
+    font-size: 2rem;
+    margin: 5px 10px; }

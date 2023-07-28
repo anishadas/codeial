@@ -16,3 +16,69 @@
 - `npm install passport`
 - `npm install passport-local`
 - it uses session cookie to store id - encrypted id
+- `npm i express-session`
+- `npm i connect-mongo` : to store the session cookie in db
+
+## SASS - Syntactically Awsome Style Sheer
+- `npm i node-sass-middleware` : to convert scss to css
+- CSS extension language
+- css with superpowers
+- indented scss
+
+## SCSS -Sassy CSS
+- avoid redundant lines of css
+
+## `CSS :`
+
+```
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+nav li {
+  display: inline-block;
+}
+nav a {
+  display: block;
+  padding: 6px 12px;
+  text-decoration: none;
+}
+```
+## `SCSS :`
+
+```
+nav {
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li { display: inline-block; }
+
+  a {
+    display: block;
+    padding: 6px 12px;
+    text-decoration: none;
+  }
+}
+```
+
+## `SASS :`
+```
+nav
+  ul
+    margin: 0
+    padding: 0
+    list-style: none
+
+  li
+    display: inline-block
+
+  a
+    display: block
+    padding: 6px 12px
+    text-decoration: none
+
+```

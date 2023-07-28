@@ -1,0 +1,52 @@
+header{
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-weight: 700;
+    background-color: blue;
+    color: white;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    ul{
+       display: flex;
+       width: 50%;
+       align-items: center;
+       justify-content: space-around; 
+       list-style-type: none;
+       li{
+        text-transform: capitalize;
+       }
+       #pro-pic{
+        display: flex;
+        align-items: center;
+        .pic{
+            background-color: white;
+            border-radius: 50%;
+            height: 35px;
+            width: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 5px;
+            i{
+                color: black;
+
+            }
+        }
+       }
+       a{
+        text-decoration: none;
+        color: white;
+        background-color: black;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        &:hover{
+            color:  red;
+        }
+       }
+    }
+}
