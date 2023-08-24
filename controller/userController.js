@@ -1,11 +1,18 @@
 const User = require("../model/users");
+const fs = require('fs');
+const path = require('path');
 
-module.exports.profile = (req, res) => {
+module.exports.profile = async (req, res) => {
     console.log(req.local);
-    return res.render("user", {
-        title: "USERS",
-        header: "WELCOME TO USER'S PROFILE"
-    })
+    const user = await User.findById(req.params.id);
+    if (user) {
+        return res.render("user", {
+            title: "USERS",
+            header: `WELCOME TO ${user.name} PROFILE`,
+            profile_user: user
+        })
+    }
+
 }
 
 // render the sign in page
@@ -51,6 +58,7 @@ module.exports.create = (req, res) => {
 
 // signin & create a session for the user
 module.exports.createSession = (req, res) => {
+    req.flash('success', 'Logged in Successfully')
     // console.log("hello")
     return res.redirect('/')
 }
@@ -58,6 +66,42 @@ module.exports.createSession = (req, res) => {
 module.exports.destroySession = (req, res) => {
     req.logout(function (err) {
         if (err) { return next(err); }
-        res.redirect('/');
+        req.flash('success', 'You have logged out!')
+        return res.redirect('/');
     });
+}
+
+module.exports.update = async (req, res) => {
+    try {
+        if (req.user.id == req.params.id) {
+
+            const user = await User.findById(req.params.id);
+            // console.log("id", user)
+            User.uploadedAvatar(req, res, async function (err) {
+                if (err) console.log("error in uploads");
+
+                user.name = req.body.name;
+                user.email = req.body.email;
+
+                if (req.file) {
+                    let isExists = fs.existsSync(path.join(__dirname, '..', user.avatar));
+                
+                    if (isExists) {
+                        
+                        fs.unlinkSync(path.join(__dirname, '..', user.avatar));
+                    }
+                    user.avatar = User.avatarPath + '/' + req.file.filename;
+                }
+
+                // console.log("user", user);
+                await User.updateOne({ _id: req.params.id }, user);
+            })
+            return res.redirect('back');
+        }
+        else {
+            return res.status(401).send("unauthorized")
+        }
+    } catch (err) {
+        console.log("error in updating the profile")
+    }
 }

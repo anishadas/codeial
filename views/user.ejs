@@ -2,9 +2,26 @@
 <h1>
     <%= header %>
 </h1>
+
+<img src="<%= user.avatar %>" alt="<%= user.name %>"  width="100"/>
+
+<% if(user.id==profile_user.id){%>
+<form action="/users/update/<%= profile_user.id %>" method="post"
+    enctype="multipart/form-data">
+    <input type="text" placeholder="Username" name="name"
+        value="<%= profile_user.name %>" required />
+
+    <input type="email" placeholder="Email" name="email"
+        value="<%= profile_user.email %>" required />
+
+    <input type="file" name="avatar" placeholder="proile pic" />
+    
+    <input type="submit" value="update" />
+</form>
+<% }%>
 <h3>
-    Name: <%= user.name  %>
+    Name: <%= profile_user.name %>
 </h3>
 <h4>
-    Email: <%= user.email  %>
+    Email: <%= profile_user.email %>
 </h4>

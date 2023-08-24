@@ -6,9 +6,13 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
+const passportJWT = require('./config/passport-jwt-strategy');
 const MongoStore = require('connect-mongo');
 const PORT = 8000;
 const saasMiddleware = require('node-sass-middleware');
+const flash = require('connect-flash');
+const customMware = require('./config/middleware');
+
 
 const app = express();
 const db = require('./config/mongoose');
@@ -28,6 +32,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use(express.static('./assets'));
+// make the uploads path available to browser
+app.use('/uploads', express.static(__dirname + "/uploads"));
 app.use(expressLayouts);
 // extract styles & scripts from layout
 app.set('layout extractStyles', true);
@@ -60,6 +66,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.setAuthenticatedUser);
+// used after the session is setup
+app.use(flash());
+app.use(customMware.setFlash);
 
 app.use('/', require('./routes'));
 

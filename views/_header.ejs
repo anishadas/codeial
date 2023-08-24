@@ -7,10 +7,10 @@
                 <a href="/">HOME</a>
             </li>
             <li>
-                <a href="/users/profile">PROFILE</a>
+                <a href="/users/profile/<%= user._id %>">PROFILE</a>
             </li>
             <li id="pro-pic">
-                <div class="pic"><i class="fa-solid fa-user"></i></div>
+                <div class="pic"><img src="<%= user.avatar %>" alt="<%= user.name %>"/></div>
                 <%= user.name  %></li>
             <li>
                 <a href="/users/signout" >SIGN OUT</a>

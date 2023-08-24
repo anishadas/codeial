@@ -5,5 +5,14 @@ body {
     .container{
         margin-top: 100px;
         height: 100vh;
+    };
+    .flash{
+        position: absolute;
+        left: 30px;
+        background-color: white;
+        color: black;
+        padding: 5px 15px;
+        font-size: 0.9rem;
+        border-radius: 10px;
     }
 }
